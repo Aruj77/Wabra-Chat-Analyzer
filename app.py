@@ -100,4 +100,21 @@ if uploaded_file is not None:
         st.pyplot(fig)
         
         
-        
+        #Activity Map
+        st.title('Activity Map')
+        col1,col2=st.columns(2)
+        with col1:
+            week_activity_df=helper.week_activity_map(selected_user,df)
+            st.header('Most busy Day')
+            fig,ax=plt.subplots()
+            ax.bar(week_activity_df.index,week_activity_df.values)
+            plt.xticks(rotation='vertical')
+            st.pyplot(fig)
+        with col2:
+            month_activity_df=helper.month_activity_map(selected_user,df)
+            st.header('Most busy Month')
+            fig,ax=plt.subplots()
+            ax.bar(month_activity_df.index,month_activity_df.values,color='orange')
+            plt.xticks(rotation='vertical')
+            st.pyplot(fig)
+            
