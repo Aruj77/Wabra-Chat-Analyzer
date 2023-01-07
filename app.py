@@ -2,8 +2,6 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import preprocessor,helper
 import seaborn as sns
-import warnings
-warnings.filterwarnings("ignore")
 
 
 st.sidebar.title('WABRA')
