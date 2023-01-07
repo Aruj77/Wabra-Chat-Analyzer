@@ -85,10 +85,21 @@ if uploaded_file is not None:
             ax.pie(emoji_df[1].head(),labels=emoji_df[0].head(),autopct="%0.2f")
             st.pyplot(fig)
         
-        #Timeline Analysis
+        #Timeline Analysis (monthly)
         st.title('Monthly Timeline')
         timeline=helper.monthly_timeline(selected_user,df)
         fig,ax=plt.subplots()
         ax.plot(timeline['time'],timeline['message'],color='green')
         plt.xticks(rotation='vertical')
         st.pyplot(fig)
+        
+        #Timeline Analysis (daily)
+        st.title('Daily Timeline')
+        daily_timeline=helper.daily_timeline(selected_user,df)
+        fig,ax=plt.subplots()
+        ax.plot(daily_timeline['only_date'],daily_timeline['message'],color='black')
+        plt.xticks(rotation='vertical')
+        st.pyplot(fig)
+        
+        
+        
