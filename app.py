@@ -51,7 +51,7 @@ if uploaded_file is not None:
                 st.dataframe(df_per)
         
         #WorldCloud
-        st.title('Mos Common WordCloud')
+        st.title('Most Common WordCloud')
         df_wc=helper.create_wordcloud(selected_user,df)
         fig,ax=plt.subplots()
         ax.imshow(df_wc)
