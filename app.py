@@ -3,6 +3,7 @@ import streamlit as st
 import preprocessor,helper
 import seaborn as sns
 
+st.set_page_config(layout="wide")
 
 st.sidebar.title('WABRA')
 st.sidebar.header('Chat Analyzer')
@@ -50,6 +51,7 @@ if uploaded_file is not None:
                 st.dataframe(df_per)
         
         #WorldCloud
+        st.title('Mos Common WordCloud')
         df_wc=helper.create_wordcloud(selected_user,df)
         fig,ax=plt.subplots()
         ax.imshow(df_wc)
@@ -82,22 +84,24 @@ if uploaded_file is not None:
             fig,ax=plt.subplots()
             ax.pie(emoji_df[1].head(),labels=emoji_df[0].head(),autopct="%0.2f")
             st.pyplot(fig)
-        
-        #Timeline Analysis (monthly)
-        st.title('Monthly Timeline')
-        timeline=helper.monthly_timeline(selected_user,df)
-        fig,ax=plt.subplots()
-        ax.plot(timeline['time'],timeline['message'],color='green')
-        plt.xticks(rotation='vertical')
-        st.pyplot(fig)
-        
-        #Timeline Analysis (daily)
-        st.title('Daily Timeline')
-        daily_timeline=helper.daily_timeline(selected_user,df)
-        fig,ax=plt.subplots()
-        ax.plot(daily_timeline['only_date'],daily_timeline['message'],color='black')
-        plt.xticks(rotation='vertical')
-        st.pyplot(fig)
+            
+        col1,col2=st.columns(2)
+        with col1:
+            #Timeline Analysis (monthly)
+            st.title('Monthly Timeline')
+            timeline=helper.monthly_timeline(selected_user,df)
+            fig,ax=plt.subplots()
+            ax.plot(timeline['time'],timeline['message'],color='green')
+            plt.xticks(rotation='vertical')
+            st.pyplot(fig)
+        with col2:
+            #Timeline Analysis (daily)
+            st.title('Daily Timeline')
+            daily_timeline=helper.daily_timeline(selected_user,df)
+            fig,ax=plt.subplots()
+            ax.plot(daily_timeline['only_date'],daily_timeline['message'],color='black')
+            plt.xticks(rotation='vertical')
+            st.pyplot(fig)
         
         
         #Activity Map
@@ -105,16 +109,22 @@ if uploaded_file is not None:
         col1,col2=st.columns(2)
         with col1:
             week_activity_df=helper.week_activity_map(selected_user,df)
-            st.header('Most busy Day')
+            st.header('Most Busy Day')
             fig,ax=plt.subplots()
             ax.bar(week_activity_df.index,week_activity_df.values)
             plt.xticks(rotation='vertical')
             st.pyplot(fig)
         with col2:
             month_activity_df=helper.month_activity_map(selected_user,df)
-            st.header('Most busy Month')
+            st.header('Most Busy Month')
             fig,ax=plt.subplots()
             ax.bar(month_activity_df.index,month_activity_df.values,color='orange')
             plt.xticks(rotation='vertical')
             st.pyplot(fig)
-            
+        
+        st.title('Weekly Activity Map')    
+        user_heatmap=helper.activity_heatmap(selected_user,df)
+        fig,ax=plt.subplots()
+        ax=sns.heatmap(user_heatmap)
+        st.pyplot(fig)
+        
