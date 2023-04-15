@@ -1,13 +1,13 @@
 import matplotlib.pyplot as plt
 import streamlit as st
-import preprocessor,helper
+import preprocessor,helper,dentiment
 import seaborn as sns
 
 st.set_page_config(layout="wide")
 
 st.sidebar.title('WABRA')
 st.sidebar.header('Chat Analyzer')
-uploaded_file=st.sidebar.file_uploader('Choose a File')
+uploaded_file=st.sidebar.file_uploader('Choose a File', type='txt')
 if uploaded_file is not None:
     bytes_data=uploaded_file.getvalue()
     data=bytes_data.decode('utf-8')
